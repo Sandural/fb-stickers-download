@@ -5,7 +5,7 @@ from tools import *
 class Maker:
     def __init__(self, img_path, log=False):
         self.img_path = img_path
-        self.path = 'Saved_Sticker'
+        self.path = 'Cute'
         
         os.makedirs(self.path, exist_ok=1)
         os.chdir(self.path)
@@ -59,11 +59,7 @@ class Maker:
                 if not (sum(colors[0][1]) == 0 and len(colors) == 1):
                     # minSticker.mode = RGBA so that we create a white background
                     # of same mode to avoid black background when converting to gif
-                    Image.alpha_composite(
-                        Image.new(
-                            'RGBA', (x, y), (255, 255, 255)), minSticker
-                            ).save(f'temp\\{n}.png'
-                            )
+                    Image.alpha_composite(Image.new('RGBA', (x, y), (0, 0, 0, 0)), minSticker).save(f'temp/{n}.png')
                     n += 1
                 
                 # Cordinates of the next image in same row
@@ -73,15 +69,22 @@ class Maker:
             cd = (0, cd[1] + y, x, cd[3] + y)
 
     def gifImg(self, name, duration):
+        print(os.listdir('temp'))
         pics = [i for i in os.listdir('temp') if i.split('.')[0].isdecimal()]
         
+        print("pics", pics)
+
         # Sorting pics ascendingly
         pics.sort(key = lambda x: int(x.split('.')[0]))
+
+        print("pics sorted", pics)
 
         frames = []
         for i in pics:
             frame = Image.open(opj('temp', i))
             frames.append(frame)
+        
+        print("frames", frames)
 
         # Correct any incorrect input
         name = Rename(name)
@@ -96,11 +99,18 @@ class Maker:
         
         # Create GIF
         Log('\nCreating Gif...', self.log)
+
+        print("frames", frames)
         frames[0].save(name + '.gif',
+                    format = 'GIF',
                     save_all = True,
                     append_images = frames[1:],
                     duration = duri,
-                    loop = 0)
+                    transparency = 255,
+                    loop = 0,
+                    # optimize = False,
+                    disposal = 2,
+                    background = 0)
 
     def run(self):
         self.cutImg()
@@ -111,3 +121,6 @@ class Maker:
         
         Clean()
         Log('\nDone!', self.log)
+
+
+# https://www.osgeo.cn/pillow/handbook/image-file-formats.html?highlight=transparent#gif
