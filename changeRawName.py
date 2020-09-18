@@ -3,8 +3,8 @@ Description  :
 Author       : Lizishan
 Date         : 2020-09-18 14:17:44
 LastEditors  : Lizishan
-LastEditTime : 2020-09-18 19:15:56
-FilePath     : /sticker2gif/getRAC.py
+LastEditTime : 2020-09-18 21:39:27
+FilePath     : /sticker2gif/changeRawName.py
 '''
 import os
 import ai
@@ -35,6 +35,8 @@ def getImgList():
 def changeRawName(filename, imageName, rows, columns, size):
     os.rename(filename, f'images/Cute/raw/{imageName}-{size[0]}x{size[1]}-{rows}x{columns}.png')
 
+
+os.system('rm -rf images/Cute/raw/.DS_Store')
 
 imageList = getImgList()
 if '.DS_Store' in imageList:

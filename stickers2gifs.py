@@ -285,3 +285,5 @@ class Makers:
 # 运行前先确保 raw 文件夹下的文件已经更改里名称， 所以首先要允许 changeRawName.py 文件
 tool = Makers(log=True)
 tool.run()
+if os.path.exists('images/Cute/raw'):
+    shutil.rmtree('images/Cute/raw')

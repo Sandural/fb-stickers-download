@@ -74,6 +74,7 @@ class Brain:
         # print(list(wd))
         # print(list(ht))
 
+        # 下面两段代码， 作用大不大呢？对于图片里有分裂的情况，是没啥作用的。
         wd = self.removeExpectedValue(list(wd))
         ht = self.removeExpectedValue(list(ht))
     
