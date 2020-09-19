@@ -86,7 +86,7 @@ class Brain:
 
 
 # if __name__ == "__main__":
-#     sticker = Image.open('images/Cute/raw/10636788.png-1152x1152-4x4.png')
+#     sticker = Image.open('images/Cute/raw/89687457_533987680850571_5547327863423762432_n.png')
 #     AI = Brain(sticker)
 #     columns, rows = AI.run()
 #     print('\nRows: {}, Columns: {}'.format(rows, columns))

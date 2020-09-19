@@ -1,0 +1,19 @@
+{
+  "name": "caclu",
+  "version": "1.0.0",
+  "description": "",
+  "main": "p.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fast-glob": "^3.2.4",
+    "get-image-pixels": "^1.0.1",
+    "get-pixels": "^3.3.2",
+    "image-pixels": "^2.2.2",
+    "sharp": "^0.26.0"
+  }
+}

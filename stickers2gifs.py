@@ -214,36 +214,26 @@ class Makers:
                 cv2.imwrite(os.path.join(cutPath, i), result)
                 sequencePngs.append(os.path.join(self.cutpath, imageName, i))
             
-            # Create GIF
-            Log('\nCreating Gif...', self.log)
-            # print(f'convert -delay 20 -loop 0 -dispose 2 {os.path.join(self.rootpath, self.path, "temp", imageName)}/*.png -coalesce {os.path.join(self.rootpath, self.path, "gif")}/{imageName}.gif')
-            # os.system(f'convert -delay 15 -loop 0 -dispose 2 {os.path.join(self.rootpath, self.path, "temp", imageName)}/*.png -coalesce {os.path.join(self.rootpath, self.path, "gif")}/{imageName}.gif')
             
-            # frames = []
-            # for i in pics:
-            #     frame = Image.open(os.path.join(self.rootpath, self.path, 'temp', imageName, i))
-            #     frames.append(frame)
-            
-            # print("frames", len(frames))
-
-            # Correct any incorrect input
-            # name = Rename(name)
-
-            # tempPath = os.path.join(self.rootpath, self.path, 'temp', imageName)
-            
+            # 序列 png 转 animated webp
             sequencePngs = ' '.join(sequencePngs)
             print("sequencePngs", sequencePngs)
-
-            # 序列 png 转 animated webp
             print(f'img2webp -loop 0 -d 100 -lossy {sequencePngs} -o {self.outputpath}/{imageName}.webp')
             os.system(f'img2webp -loop 0 -d 100 -lossy {sequencePngs} -o {self.outputpath}/{imageName}.webp')
 
-            # frames[0].save(f'{outputpath}/{imageName}.gif',
+            # 转 GIF
+            # frames = []
+            # for i in pics:
+            #     frame = Image.open(os.path.join(self.cutpath, imageName, i))
+            #     frames.append(frame)
+            
+            # print("frames", len(frames))
+            # frames[0].save(f'{self.outputpath}/{imageName}.gif',
             #             format = 'GIF',
             #             save_all = True,
             #             append_images = frames[1:],
             #             duration = 120,
-            #             transparency = 255,
+            #             transparency = 0,
             #             loop = 0,
             #             disposal = 2)    
             # os.system(f'apngasm {outputpath}/{imageName}.png {tempPath}/*.png 1 10') # 序列 png 转 动态 png
@@ -285,5 +275,3 @@ class Makers:
 # 运行前先确保 raw 文件夹下的文件已经更改里名称， 所以首先要允许 changeRawName.py 文件
 tool = Makers(log=True)
 tool.run()
-if os.path.exists('images/Cute/raw'):
-    shutil.rmtree('images/Cute/raw')
