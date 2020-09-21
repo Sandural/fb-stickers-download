@@ -13,6 +13,7 @@ class Makers:
         self.tempath = os.path.join(self.rootpath, self.path, 'temp')
         self.cutpath = os.path.join(self.rootpath, self.path, 'cut')
         self.outputpath = os.path.join(self.rootpath, self.path, 'gif')
+        self.apngpath = os.path.join(self.rootpath, self.path, 'apng')
 
         self.log = log
 
@@ -218,8 +219,8 @@ class Makers:
             # 序列 png 转 animated webp
             sequencePngs = ' '.join(sequencePngs)
             print("sequencePngs", sequencePngs)
-            print(f'img2webp -loop 0 -d 100 -lossy {sequencePngs} -o {self.outputpath}/{imageName}.webp')
-            os.system(f'img2webp -loop 0 -d 100 -lossy {sequencePngs} -o {self.outputpath}/{imageName}.webp')
+            # print(f'img2webp -loop 0 -d 100 -lossy {sequencePngs} -o {self.outputpath}/{imageName}.webp')
+            # os.system(f'img2webp -loop 0 -d 100 -lossy {sequencePngs} -o {self.outputpath}/{imageName}.webp')
 
             # 转 GIF
             # frames = []
@@ -233,11 +234,12 @@ class Makers:
             #             save_all = True,
             #             append_images = frames[1:],
             #             duration = 120,
-            #             transparency = 0,
+            #             transparency = 255,
             #             loop = 0,
-            #             disposal = 2)    
-            # os.system(f'apngasm {outputpath}/{imageName}.png {tempPath}/*.png 1 10') # 序列 png 转 动态 png
-            # os.system(f'apng2gif -i {outputpath}/{imageName}.png -o {outputpath}/{imageName}.gif -t 128') # 动态 png 转 gif
+            #             disposal = 2)
+            # 转 GIF， 分两步走
+            os.system(f'apngasm {self.apngpath}/{imageName}.png {self.cutpath}/{imageName}/*.png 1 10') # 序列 png 转 动态 png
+            os.system(f'apng2gif {self.apngpath}/{imageName}.png {self.outputpath}/{imageName}.gif') # 动态 png 转 gif
 
     def run(self):
         # 删除 raw 文件里的 .DS_Store
@@ -250,6 +252,13 @@ class Makers:
             print('outputpath')
             shutil.rmtree(self.outputpath)
             os.makedirs(self.outputpath)
+        else:
+            os.makedirs(self.outputpath)
+
+        if os.path.exists(self.apngpath):
+            print('apngpath')
+            shutil.rmtree(self.apngpath)
+            os.makedirs(self.apngpath)
         else:
             os.makedirs(self.outputpath)
 
